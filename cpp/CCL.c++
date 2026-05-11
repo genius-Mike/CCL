@@ -38,14 +38,23 @@ int main()
     string nomeClasse, assegnazioneNomi, subString;
     int inputTipo, indexAccesso, indexType, strPointer;
     char repliche, charInput;
+    bool ereditarieta = false;
     variabile varTemp;
     metodo metTemp;
     // Create and open a text file
 
     // Classe
     getline (cin, assegnazioneNomi);
-    cout << "public class " + assegnazioneNomi + "{\n";
-    nomeClasse = assegnazioneNomi;
+    if(assegnazioneNomi.find('#')!=string::npos){
+        strPointer = assegnazioneNomi.find('#');
+        subString = assegnazioneNomi.substr(strPointer+1, assegnazioneNomi.length());
+        nomeClasse = assegnazioneNomi.substr(0, strPointer);
+        cout << "public class " + nomeClasse + " extends " + subString + "{\n";
+        ereditarieta = true;
+    }else{
+        cout << "public class " + assegnazioneNomi + "{\n";
+        nomeClasse = assegnazioneNomi;
+    }
     
     //leggere parametri
     while (getline (cin, assegnazioneNomi)) {
