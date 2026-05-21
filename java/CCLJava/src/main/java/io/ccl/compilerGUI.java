@@ -12,6 +12,9 @@ public class compilerGUI extends JPanel {
     private static Font font = new Font("Arial", Font.PLAIN, 18);
     private static Font smallfont = new Font("Arial", Font.PLAIN, 14);
 
+    private static final JTextField name = new JTextField();
+    private static final JTextPane attributes = new JTextPane();
+
     public compilerGUI(GUI mainWindow){
         this.mainWindow = mainWindow;
         mainWindow.setSize(700, 500);
@@ -29,7 +32,7 @@ public class compilerGUI extends JPanel {
         // directoryPanel.add(new JPanel());
 
         JPanel namePanel = new JPanel(new GridLayout(1, 3));
-        JTextField name = new JTextField(); name.setFont(font);
+        name.setFont(font);
         JLabel nameLabel = new JLabel("Class: ", SwingConstants.RIGHT); nameLabel.setFont(font);
         namePanel.add(nameLabel); namePanel.add(name); namePanel.add(new JPanel());
 
@@ -37,7 +40,7 @@ public class compilerGUI extends JPanel {
         topPanel.add(namePanel, BorderLayout.CENTER);
 
         JPanel attributePanel = new JPanel(new BorderLayout());
-        JTextPane attributes = new JTextPane(); attributes.setFont(font);
+        attributes.setFont(font);
         JToolTip tip = new JToolTip(); tip.setTipText("Use UML notation to write your attributes"); tip.setComponent(attributes);
         JLabel attributeLabel = new JLabel("Attributes", SwingConstants.CENTER); attributeLabel.setFont(font);
         attributePanel.add(attributeLabel, BorderLayout.NORTH); attributePanel.add(attributes, BorderLayout.CENTER);
@@ -52,8 +55,13 @@ public class compilerGUI extends JPanel {
         add(attributePanel, BorderLayout.CENTER);
         add(btns, BorderLayout.SOUTH);
 
-//        System.out.println();
-//        File f = new File(selectedDirectory.toString() + "/esempio.java");
-//        f.
+    }
+
+    public String getClassField(){
+        return name.getText();
+    }
+
+    public String getAttributeField(){
+        return attributes.getText();
     }
 }
