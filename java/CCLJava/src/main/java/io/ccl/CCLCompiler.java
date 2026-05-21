@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static io.ccl.Main.selectedDirectory;
 
@@ -29,6 +30,13 @@ public class CCLCompiler {
                 fw.append("public class " + classname + " {\n");
                 for(String s : parsedAttributes){
                     fw.append(s).append("\n");
+                }
+                for(String s : attributes){
+                    List<String> methods = methodBuilder(s);
+                    fw.append("\n");
+                    fw.append(methods.get(0));
+                    fw.append("\n");
+                    fw.append(methods.get(1));
                 }
                 fw.append("}");
                 fw.close();
@@ -61,9 +69,6 @@ public class CCLCompiler {
             };
 
             String type = s.substring(s.indexOf(":")+1);
-//            if (type.substring(0, 2).equals("AL")){
-//                String[] ALconstr = type.split("\\.");
-//
             parsedLine = switch (type) {
                 case "y" -> parsedLine.concat("byte ");
                 case "s" -> parsedLine.concat("short ");
@@ -81,5 +86,33 @@ public class CCLCompiler {
             parsed.add(parsedLine);
         }
         return parsed;
+    }
+
+    private List<String> methodBuilder(String attribute) {
+        attribute = attribute.replace("\r", "");
+
+        String name = attribute.substring(1, attribute.indexOf(":"));
+        String parsedName = attribute.substring(1, 2).toUpperCase(Locale.ROOT) + attribute.substring(2, attribute.indexOf(":"));
+
+        String type = switch (attribute.substring(attribute.indexOf(":") + 1)) {
+            case "y" -> "byte";
+            case "s" -> "short";
+            case "i" -> "int";
+            case "l" -> "long";
+            case "f" -> "float";
+            case "d" -> "double";
+            case "b" -> "boolean";
+            case "c" -> "char";
+            case "S" -> "String";
+            default -> "";
+        };
+
+        String setter = "    public void set" + parsedName + "(" + type + " " + name + "){\n"
+                + "        this." + name + " = " + name + ";\n"
+                + "}\n";
+        String getter = "    public " + type + " get" + parsedName + "(){\n"
+                + "        return " + name + ";\n"
+                + "}\n";
+        return List.of(getter, setter);
     }
 }
