@@ -18,8 +18,7 @@ public class GUI extends JFrame {
 
         pane.setLayout(new BorderLayout());
 
-//        buildClassScreen();
-       selectDirectoryScreen();
+        selectDirectoryScreen();
 
 
 

@@ -1,7 +1,7 @@
 package io.ccl;
 
 import javax.swing.*;
-import java.io.File;
+import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ public class CCLCompiler {
     }
 
     public void compile(){
-        classname = source.getClassField();
-        attributes = source.getAttributeField().split("\\n");
+        classname = source.getClassFieldText();
+        attributes = source.getAttributeFieldText().split("\\n");
 
         try {
             List<String> parsedAttributes = parseAttributes();
@@ -45,12 +45,27 @@ public class CCLCompiler {
             }
         } catch (AttributeCompilationException e) {
             JFrame errormsg = new JFrame();
+            errormsg.setTitle("Compilation error");
             errormsg.setSize(300, 100);
             errormsg.setLocationRelativeTo(null);
-            errormsg.add(new JLabel(e.getMessage()));
+            JLabel text = new JLabel(e.getMessage(), SwingConstants.CENTER);
+            text.setFont(new Font("Arial", Font.PLAIN, 18));
+            errormsg.add(text);
             errormsg.setVisible(true);
             throw new RuntimeException(e);
         }
+
+        JFrame success = new JFrame();
+        success.setTitle("Compilation Success");
+        success.setSize(270, 100);
+        success.setLocationRelativeTo(null);
+        JLabel text = new JLabel("Successfully compiled class!", SwingConstants.CENTER);
+        text.setFont(new Font("Arial", Font.PLAIN, 18));
+        success.getContentPane().add(text);
+        success.setVisible(true);
+
+        source.getClassField().setText("");
+        source.getAttributeField().setText("");
     }
 
     private List<String> parseAttributes() throws AttributeCompilationException {

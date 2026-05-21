@@ -2,7 +2,6 @@ package io.ccl;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 import static io.ccl.GUI.flowpanelled;
 import static io.ccl.Main.selectedDirectory;
@@ -72,11 +71,23 @@ public class compilerGUI extends JPanel {
         });
     }
 
-    public String getClassField(){
+    public String getClassFieldText(){
         return name.getText();
     }
 
-    public String getAttributeField(){
+    public String getAttributeFieldText(){
         return attributes.getText();
+    }
+
+    public JTextField getClassField(){
+        return name;
+    }
+
+    public JTextPane getAttributeField(){
+        return attributes;
+    }
+
+    public GUI getMainWindow(){
+        return mainWindow;
     }
 }
