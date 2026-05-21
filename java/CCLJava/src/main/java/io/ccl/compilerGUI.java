@@ -55,6 +55,21 @@ public class compilerGUI extends JPanel {
         add(attributePanel, BorderLayout.CENTER);
         add(btns, BorderLayout.SOUTH);
 
+
+        compile.addActionListener(l -> {
+            new CCLCompiler(this).compile();
+        });
+
+        docs.addActionListener(l -> {
+            try {
+                java.awt.Desktop.getDesktop().browse(
+                        java.net.URI.create("https://docs.google.com/document/d/10wryGbPMTP86puhXieyhmxhOW_bT0UteWNZVrCQDg2A/edit?tab=t.0")
+                );
+            }
+            catch (java.io.IOException e) {
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
     public String getClassField(){

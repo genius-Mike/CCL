@@ -49,6 +49,7 @@ public class CCLCompiler {
         List<String> parsed = new ArrayList<>(List.of());
 
         for(String s : attributes){
+            s = s.replace("\r", "");
             String parsedLine = "";
 
             String accessor = s.substring(0, 1);
