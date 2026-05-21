@@ -2,10 +2,10 @@ package io.ccl;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 public class GUI extends JFrame {
     public static final String title = "CCL v4.0";
+    private Container pane = getContentPane();
 
     public GUI(){
         this.setTitle(title);
@@ -16,19 +16,24 @@ public class GUI extends JFrame {
         ImageIcon icon = new ImageIcon("C:\\Users\\koper\\OneDrive\\Pulpit\\CCL\\java\\CCLJava\\src\\main\\resources\\ccllogo.png");
         this.setIconImage(icon.getImage());
 
-        Container pane = this.getContentPane();
         pane.setLayout(new BorderLayout());
 
-        selectDirectoryScreen();
+//        buildClassScreen();
+       selectDirectoryScreen();
 
 
 
         this.setVisible(true);
     }
 
-    private void selectDirectoryScreen(){
-        Container pane = getContentPane();
-        pane.add(new directorySelect(this), BorderLayout.CENTER);
+    public void selectDirectoryScreen(){
+        pane.removeAll();
+        pane.add(new startupGUI(this), BorderLayout.CENTER);
+    }
+
+    public void buildClassScreen(){
+        pane.removeAll();
+        pane.add(new compilerGUI(this), BorderLayout.CENTER);
     }
 
     public static JPanel flowpanelled(Component c){
