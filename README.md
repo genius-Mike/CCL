@@ -1,4 +1,5 @@
 # What is CCL?
+<img src="./logoCCL.jpeg" width="200" height="200">
 
 Compact Class Language (CCL) is a passion project aimed to simplify writing Java classes through shorthand notation.
 Started in December 2025 as a simple class writing program in C++, it’s evolving to deal with more, in less time.
